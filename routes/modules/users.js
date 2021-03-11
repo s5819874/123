@@ -15,21 +15,19 @@ router.post('/register', ((req, res) => {
   if (!email || !password || !confirmPassword) {
     err_msgs.push({ message: '所有欄位為必填!' })
   }
-  if (password != confirmPassword) {
-    err_msgs.push({ message: '密碼與確認密不相符!' })
+  if (password !== confirmPassword) {
+    err_msgs.push({ message: '密碼與確認密碼不相符!' })
   }
   if (err_msgs.length) {
-    res.render('register', {
+    return res.render('register', {
       err_msgs, name, email, password, confirmPassword
     })
   }
   User.findOne({ email })
     .then(user => {
       if (user) {
-        err_msgs.push({ message: '此email已註冊!' })
-        return res.render('register', {
-          err_msgs, name, email, password, confirmPassword
-        })
+        err_msgs.push({ message: '此email已註冊過' })
+        return res.render('register', { err_msgs, name, email, password, confirmPassword })
       } else {
         return bcrypt
           .genSalt(10)
