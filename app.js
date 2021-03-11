@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
+const session = require('express-session')
 const bodyParser = require('body-parser')
 const Restaurant = require('./models/restaurant.js')
 const features = ['name', 'en_name', 'phone', 'rating', 'google_map', 'category', 'image', 'location', 'description']
@@ -17,11 +18,16 @@ require('./config/mongoose.js')
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
-//use static files, body-parser, method_override, and routes
+//use static files, body-parser, method_override, express-session and routes
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(routes)
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 //start and listen on the server
 app.listen(port, () => {
