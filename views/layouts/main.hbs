@@ -3,9 +3,14 @@
   <nav class="navbar navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand text-info" href="/">
-        我的餐廳清單
-      </a>
+        {{#if isAuthenticated}}
+        {{user.name}}{{/if}} 餐廳清單</a>
       <a class="btn btn-outline-danger btn-sm" href="/restaurants/new" role="button">加新餐廳</a>
+      {{#if isAuthenticated}}
+      <a href="/users/logout" class="btn btn-outline-secondary btn-sm">Logout</a>
+      {{else}}
+      <a href="/users/login" class="btn btn-outline-secondary btn-sm">Login</a>
+      {{/if}}
     </div>
   </nav>
 
