@@ -33,5 +33,5 @@ app.use(routes)
 
 //start and listen on the server
 app.listen(port, () => {
-  console.log(`Expres is now running on https://localhost:${port}`)
+  console.log(`App is now running on https://localhost:${port}`)
 })
