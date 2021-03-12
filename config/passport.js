@@ -8,16 +8,16 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
   // 設定本地登入策略
-  passport.use(new localStrategy({ usernameField: 'email' }, (email, password, done) => {
+  passport.use(new localStrategy({ usernameField: 'email', passReqToCallback: true }, (email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) {
-          return done(null, false, { message: '此email無註冊紀錄!' })
+          return done(null, false, { 'warning_msg': '此email無註冊紀錄!' })
         }
         return bcrypt.compare(password, user.password)
           .then(isMatch => {
             if (!isMatch) {
-              return done(null, false, { message: '密碼不正確!' })
+              return done(null, false, { 'warning_msg': '密碼不正確!' })
             }
             return done(null, user)
           })
