@@ -1,7 +1,7 @@
 //require packages and json file 
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT
 const exphbs = require('express-handlebars')
 const session = require('express-session')
 const bodyParser = require('body-parser')
@@ -14,6 +14,9 @@ const routes = require('./routes')
 require('./config/mongoose.js')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 
 //set template engine
@@ -25,7 +28,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
