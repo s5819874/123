@@ -11,7 +11,13 @@ const restaurantSchema = new Schema({
   category: String,
   image: String,
   location: String,
-  description: String
+  description: String,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Restaurant',
+    index: true,
+    required: true
+  }
 })
 
 //export model

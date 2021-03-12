@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 //set database connection
-mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 //get status of connection of database
 const db = mongoose.connection
 db.on('error', () => {
