@@ -1,18 +1,21 @@
 <div class="form-bg">
   <form action="/restaurants" method="POST">
 
+    {{> message}}
+
     <div class="input-group flex-nowrap pt-2" style="max-width: 50%; margin: auto auto;">
       <div class="input-group-prepend">
         <span class="input-group-text" id="addon-wrapping">餐廳名稱</span>
       </div>
-      <input type="text" class="form-control bg-dark text-white" name="name" placeholder="尚未輸入">
+      <input type="text" class="form-control bg-dark text-white" name="name" placeholder="尚未輸入" required>
     </div>
+
 
     <div class="input-group flex-nowrap pt-2" style="max-width: 50%; margin: auto auto;">
       <div class="input-group-prepend">
         <span class="input-group-text" id="addon-wrapping">餐廳電話</span>
       </div>
-      <input type="text" class="form-control bg-dark text-white" name="phone" placeholder="尚未輸入">
+      <input type="text" class="form-control bg-dark text-white" name="phone" placeholder="ex: (02) 2222-1111" required>
     </div>
 
     <div class="input-group flex-nowrap pt-2" style="max-width: 50%; margin: auto auto;">
@@ -20,8 +23,8 @@
         <span class="input-group-text" id="addon-wrapping">餐廳評分</span>
       </div>
 
-      <select class="custom-select form-control bg-dark text-white" name="rating">
-        <option selected>請選擇評分▾</option>
+      <select class="custom-select form-control bg-dark text-white" required="true" name="rating">
+        <option disabled selected value="">請選擇評分▾</option>
         <option value="1">★</option>
         <option value="2">★★</option>
         <option value="3">★★★</option>

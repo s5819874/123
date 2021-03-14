@@ -4,6 +4,7 @@ const Restaurant = require('../../models/restaurant')
 const features = ['name', 'en_name', 'phone', 'rating', 'google_map', 'category', 'image', 'location', 'description']
 const featureList = ['餐廳中文', '餐廳英文', '電話號碼', '饕客評分', '谷歌地圖', '餐廳類別', '照片網址', '餐廳地點', '餐廳描述']
 
+
 //set router of new page
 router.get('/new', ((req, res) => {
   res.render('new', { featureList, features })
@@ -12,14 +13,17 @@ router.get('/new', ((req, res) => {
 router.post('/', ((req, res) => {
   if (req.body.image.length === 0) { req.body.image = 'https://cdn.iconscout.com/icon/free/png-256/restaurant-1495593-1267764.png' }
   const re = /\(?0?\d?\)?\s?\d{3,4}\-?\d{4}/
-  if (!req.body.phone.match(re)) {
-    alert("不是正確的號碼格式")
+  const isMatch = req.body.phone.match(re)
+  if (!isMatch) {
+    req.flash('warning_msg', '電話格式不正確')
+    res.redirect('/restaurants/new')
+  } else {
+    req.body.userId = req.user._id
+    const restaurant = req.body
+    return Restaurant.create(restaurant)
+      .then(() => res.redirect('/'))
+      .catch(error => res.send(error))
   }
-  req.body.userId = req.user._id
-  const restaurant = req.body
-  return Restaurant.create(restaurant)
-    .then(() => res.redirect('/'))
-    .catch(error => res.send(error))
 }))
 
 //set router of show page
