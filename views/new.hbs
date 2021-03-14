@@ -19,7 +19,15 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="addon-wrapping">餐廳評分</span>
       </div>
-      <input type="text" class="form-control bg-dark text-white" name="rating" placeholder="尚未輸入">
+
+      <select class="custom-select form-control bg-dark text-white" name="rating">
+        <option selected>請選擇評分▾</option>
+        <option value="1">★</option>
+        <option value="2">★★</option>
+        <option value="3">★★★</option>
+        <option value="4">★★★★</option>
+        <option value="5">★★★★★</option>
+      </select>
     </div>
 
     <div class="input-group flex-nowrap pt-2" style="max-width: 50%; margin: auto auto;">
@@ -55,7 +63,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="addon-wrapping">圖片連結</span>
       </div>
-      <input type="text" class="form-control bg-dark text-white" name="image">
+      <input type="url" class="form-control bg-dark text-white" name="image">
     </div>
 
     <div class="d-flex justify-content-center mt-3" style="width: 100%;">

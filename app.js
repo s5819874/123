@@ -1,6 +1,9 @@
 //require packages and json file 
 const express = require('express')
 const app = express()
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const port = process.env.PORT
 const exphbs = require('express-handlebars')
 const session = require('express-session')
@@ -11,14 +14,12 @@ const featureList = ['餐廳中文', '餐廳英文', '電話號碼', '饕客評�
 const methodOverride = require('method-override')
 //引入路由器時，路徑設定為 /routes 就會自動去尋找目錄下叫做 index 的檔案。
 const routes = require('./routes')
-require('./config/mongoose.js')
+
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
 
 
+require('./config/mongoose.js')
 //set template engine
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
